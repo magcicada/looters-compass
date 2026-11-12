@@ -3,6 +3,8 @@ package dev.kvnmtz.looterscompass.item.registry;
 import dev.kvnmtz.looterscompass.LootersCompassMod;
 import dev.kvnmtz.looterscompass.item.LootersCompassItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,5 +18,12 @@ public class ModItems {
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
+        eventBus.addListener(ModItems::addCreativeTabContents);
+    }
+
+    private static void addCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+            event.accept(LOOTERS_COMPASS.get());
+        }
     }
 }
